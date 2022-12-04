@@ -10,33 +10,36 @@ import * as mainFunc from "./../ts/movieApp";
 
 jest.mock("./../ts/services/movieservice.ts");
 
-test("should be able to call fn handleSubmit", () => {
-  //Arrange
-  let spy = jest.spyOn(mainFunc, "handleSubmit").mockReturnValue(
-    new Promise((resolve) => {
-      resolve();
-    })
-  );
-  document.body.innerHTML = `
+describe("init", () => {
+  test("should be able to call fn handleSubmit", () => {
+    //Arrange
+    let spy = jest.spyOn(mainFunc, "handleSubmit").mockReturnValue(
+      new Promise((resolve) => {
+        resolve();
+      })
+    );
+    document.body.innerHTML = `
   <form id="searchForm">
   <button type="submit" id="search">Sök</button>
   </form>
     `;
-  mainFunc.init();
-  //Act
-  (document.getElementById("searchForm") as HTMLFormElement)?.submit();
+    mainFunc.init();
+    //Act
+    (document.getElementById("searchForm") as HTMLFormElement)?.submit();
 
-  //Assert
-  expect(spy).toHaveBeenCalled();
-  document.body.innerHTML = "";
+    //Assert
+    expect(spy).toHaveBeenCalled();
+    document.body.innerHTML = "";
+  });
 });
 
-/* describe("handleSubmit", () => {
+describe("handleSubmit", () => {
   beforeEach(() => {
     jest.resetModules();
 
     jest.restoreAllMocks();
   });
+
   test("should call createHtml", async () => {
     document.body.innerHTML = `<form id="searchForm">
 
@@ -60,28 +63,41 @@ test("should be able to call fn handleSubmit", () => {
 
     document.body.innerHTML = "";
   });
-}); */
+});
 
 describe("createHTML", () => {
-  test("Should create HTML ", async () => {
+  beforeEach(() => {
+    jest.resetModules();
+    jest.restoreAllMocks();
+  });
+
+  test("should create HTML for movies", async () => {
     //Arrange
+
     document.body.innerHTML = `<div id="movie-container"></div>`;
-    let searchText: string = "hej";
-    let container: HTMLDivElement = document.getElementById(
+    let myCont: HTMLDivElement = document.getElementById(
       "movie-container"
     ) as HTMLDivElement;
+    let searchText: string = "Harry Potter";
     let movies: IMovie[] = await serviceFunc.getData(searchText);
+
     //Act
-    mainFunc.createHtml(movies, container);
-    //Assset
-    expect(document.querySelectorAll("div.movie")?.length).toBe(3);
-    expect(document.querySelectorAll("h3")?.length).toBe(3);
-    expect(document.querySelectorAll("img")?.length).toBe(3);
-    document.body.innerHTML = "";
+
+    mainFunc.createHtml(movies, myCont);
+    //Assert
+    expect(document.querySelectorAll("div.movie").length).toBe(3);
+    expect(document.querySelectorAll("h3").length).toBe(3);
+    expect(document.querySelectorAll("img").length).toBe(3);
   });
 });
 
 describe("displayNoResult", () => {
+  beforeEach(() => {
+    jest.resetModules();
+
+    jest.restoreAllMocks();
+  });
+
   test("should display error messadge", () => {
     //Arrange
 
