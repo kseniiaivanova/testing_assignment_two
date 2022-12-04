@@ -18,6 +18,7 @@ jest.mock("axios", () => ({
 
 describe("getData", () => {
   test("should get mock data", async () => {
+    expect.assertions(3);
     //Arrange
 
     let searchText: string = "hej";
@@ -30,21 +31,5 @@ describe("getData", () => {
     expect(movies.length).toBe(3);
     expect(movies[0].Title).toBe("Harry Potter");
     //expect(movies)
-  });
-
-  test("should return empty array", async () => {
-    //Arrange
-
-    let searchText: string = "";
-
-    //Act
-
-    //Assert
-
-    try {
-      await getData(searchText);
-    } catch (response: any) {
-      expect(response.length).toBe(0);
-    }
   });
 });

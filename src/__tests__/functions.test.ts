@@ -3,6 +3,7 @@ import { IMovie } from "./../ts/models/Movie";
 
 describe("movieSort", () => {
   test("should sort movies from a to z", () => {
+    expect.assertions(2);
     //Arrange
     let myMovies: IMovie[] = [
       {
@@ -38,6 +39,7 @@ describe("movieSort", () => {
   });
 
   test("should sort movies from z to a", () => {
+    expect.assertions(2);
     //Arrange
 
     let myMovies: IMovie[] = [
@@ -64,7 +66,6 @@ describe("movieSort", () => {
         Year: "1965",
       },
     ];
-
     let desc: boolean = false;
     //Act
 
@@ -76,6 +77,7 @@ describe("movieSort", () => {
   });
 
   test("should not sort movies from a to z", () => {
+    expect.assertions(2);
     //Arrange
     let myMovies: IMovie[] = [
       {
@@ -111,6 +113,7 @@ describe("movieSort", () => {
   });
 
   test("should not sort movies from z to a", () => {
+    expect.assertions(2);
     //Arrange
     let myMovies: IMovie[] = [
       {
